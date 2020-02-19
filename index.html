@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">      
+          <script src="jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script defer src="face-api.min.js"></script>
+  <title>Face Recognition</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    #loadingScreen {
+/*      background: #536878;
+*/      width: 100%;
+      height: 100%;
+      text-align: center;
+    }
+    #loadingTitle{
+        font-size: 30px;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    #resultsSection {
+      font-family: 'Montserrat', sans-serif;
+      border: 1px solid black;
+      margin: 3px;
+    }
+
+    #inputSection button {
+      width: 130px;
+      height: 40px;
+      border: none;
+      font-size: 16px;
+      font-family: 'Montserrat', sans-serif;
+      color: white;
+      background: #4b3ecf;
+
+    }
+
+    a {
+      margin: 18px;
+      color: #4b3ecf;
+      padding: 2px;
+    }
+    a:pressed {
+      color: #4b3ecf;
+    }
+    #inputSection button:focus {
+      outline: none;
+    }
+
+    #logo {
+      margin-top: 40px;
+    }
+    #loadGif {
+      margin-top:50px;
+    }
+    #inputSection {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="loadingScreen">
+    <img width="300px" height="210px" id="logo" src="media/logo.png">
+        <img id="loadGif" width="300px" src="media/load.gif">
+    <h1 id="loadingTitle">Loading...</h1>
+  </div>
+  <div style='display:none;' id="mainScreen">
+    <div id="inputSection">
+<video id="video" width="100%" height="480" autoplay></video>
+<button id="snap">Find Person</button>
+<canvas id="canvas" width="100%" height="480"></canvas>
+<script>
+ var video = document.getElementById('video');
+
+// Get access to the camera!
+if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    // Not adding `{ audio: true }` since we only want video now
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+        //video.src = window.URL.createObjectURL(stream);
+        video.srcObject = stream;
+        video.play();
+    });
+}
+
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+var video = document.getElementById('video');
+
+// Trigger photo take
+// document.getElementById("snap").addEventListener("click", function() {
+//   context.drawImage(video, 0, 0, 640, 480);
+// });
+</script> 
+<!--       <input type="file" id="imageUpload">
+ -->    </div>
+    <div style="margin-top: 30px; padding-bottom: 10px; text-align: center;" id="resultsSection">
+      <h2>Results</h2>
+    </div>
+  </div>
+
+
+
+
+
+<script defer src="script.js"></script>
+
+</body>
+</html>
