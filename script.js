@@ -9,9 +9,9 @@ $( document ).ready(function() {
 
 const imageUpload = document.getElementById('imageUpload')
 Promise.all([
-  faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
-  faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-  faceapi.nets.ssdMobilenetv1.loadFromUri('/models')
+  faceapi.nets.faceRecognitionNet.loadFromUri('https://raw.githubusercontent.com/2v-coder/whois/master/models'),
+  faceapi.nets.faceLandmark68Net.loadFromUri('https://raw.githubusercontent.com/2v-coder/whois/master/models'),
+  faceapi.nets.ssdMobilenetv1.loadFromUri('https://raw.githubusercontent.com/2v-coder/whois/master/models')
 ]).then(start)
 
 async function start() {
