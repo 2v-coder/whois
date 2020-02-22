@@ -65,7 +65,8 @@ async function start() {
       }
       main.appendChild(para);
       var element = document.getElementById("resultsSection");
-      element.appendChild(main)
+      element.appendChild(main);
+      element.appendChild(video);
       //window.open('http://google.com/search?q=' + result.toString() + " wikipedia");
       // drawBox.draw(canvas)
 
