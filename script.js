@@ -29,7 +29,8 @@ async function start() {
   console.log('Loaded')
 
   document.getElementById("snap").addEventListener("click", async () => {
-    // if (image) image.remove()
+        const displaySize = { width: video.width, height: video.height }
+                   // if (image) image.remove()
     // if (canvas) canvas.remove()
     
     // image = await faceapi.detectAllFaces(video)
@@ -38,38 +39,43 @@ async function start() {
     //container.append(image)
     //canvas = faceapi.createCanvasFromMedia(image)
     //container.append(canvas)
-    const displaySize = { width: video.width, height: video.height }
+
     // faceapi.matchDimensions(canvas, displaySize)
     const detections = await faceapi.detectAllFaces(video).withFaceLandmarks().withFaceDescriptors()
     const resizedDetections = faceapi.resizeResults(detections, displaySize)
     const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor))
     
+
     // After finding do:
     results.forEach((result, i) => {
       const box = resizedDetections[i].detection.box
       const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() })
-
+      var msg = "Person is Not Found in server";
       var main = document.createElement("div");
       var res = result.toString().substring(0, 7);
+      var resultion = result.toString().slice(0, -6)
       if(res == "unknown") {
-         var para = document.createElement("p");
-        var node = document.createTextNode("Person is Not Found in server")
-        para.appendChild(node);
-
+         var para = document.getElementById("personName").textContent = msg;
       }
       else {
-        var para = document.createElement("a");
-        var node = document.createTextNode(result.toString())
-        para.href='http://google.com/search?q=' + result.toString() + " wikipedia";
-        para.appendChild(node);
+        // var img = document.createElement('img').setAttribute("src", "https://github.com/2v-coder/whois/labels/" + resultion + "/1.jpg");
+        var para = document.getElementById("personName").textContent = resultion;
+        // para.href='http://google.com/search?q=' + resultion + " wikipedia";
+        // para.appendChild(node);
+        // main.appendChild(para);
+
       }
-      main.appendChild(para);
       var element = document.getElementById("resultsSection");
       element.appendChild(main);
+      console.log(resultion)
+      var resultionSection = document.getElementById("resultsPage");
+      mainContent.style.display = "none";
+      resultionSection.style.display = "block";
       //window.open('http://google.com/search?q=' + result.toString() + " wikipedia");
       // drawBox.draw(canvas)
 
     })
+      
     // end
   })
     // context.drawImage(video, 0, 0, 640, 480);
